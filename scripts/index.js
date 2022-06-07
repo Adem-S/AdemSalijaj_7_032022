@@ -57,7 +57,7 @@ function filterRecipes(input, tag = "") {
     });
   }
   //Verifie si les recettes correspondent à la recherche, modifie la variable finalArray et assigne la variable finalArray à RECIPES_TO_SHOW
-  if (inputValue.length > 0) {
+  if (inputValue.length >= 3) {
     RECIPES_TO_SHOW = finalArray.filter((recipe) => {
       return (
         recipe.name.toUpperCase().indexOf(inputValue.toUpperCase()) > -1 ||
