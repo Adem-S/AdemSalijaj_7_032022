@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Les petits Plats</title>
+    <link href="css/styles.css" rel="stylesheet" type="text/css" />
+    <script src="scripts/index.js" defer></script>
+    <script src="scripts/recipesFactory.js" defer></script>
+    <script src="scripts/select.js" defer></script>
+    <script src="scripts/tag.js" defer></script>
+    <script src="scripts/searchBar.js" defer></script>
+  </head>
+  <body>
+    <!--  LOGO ET TITRE -->
+    <header>
+      <img src="img/chef.svg" alt="chef's hat" />
+      <h1>Les petits plats</h1>
+    </header>
+
+    <main>
+      <!--  SEARCH BAR POUR LES RECETTES -->
+      <div class="search-container">
+        <input type="text" placeholder="Rechercher une recette" />
+        <img src="img/glass.svg" alt="glass" />
+      </div>
+
+      <div>
+        <!--         CONTAINER DES DIFFERENTS TAGS -->
+        <ul class="tag-container"></ul>
+
+        <!-- SECTION DES SELECTS -->
+        <div class="select-section">
+          <!--   SELECT 1 (INGREDIENTS)-->
+          <div class="select select--ingredients">
+            <!--   PRESENTATION DU SELECT AVANT OUVERTURE-->
+            <div class="select__header">
+              <p>Ingredients</p>
+              <img src="img/arrow.svg" alt="cross" class="cross-select" />
+            </div>
+            <!--  CONTAINER APRES OUVERTURE DU SELECT  -->
+            <div class="select__container hidden">
+              <!-- INPUT DU SELECT -->
+              <div class="select__input">
+                <input
+                  type="text"
+                  data-type="ingredients"
+                  placeholder="Rechercher un ingrédient"
+                  oninput="filterSelectChoices(event.target, 'ingredients')"
+                />
+                <img
+                  src="img/arrow.svg"
+                  alt="cross"
+                  class="cross-select rotate-180deg"
+                />
+              </div>
+              <!--  CONTAINER AVEC TOUS LES CHOIX POSSIBLES DU SELECT -->
+              <div class="select__item"></div>
+            </div>
+          </div>
+
+          <div class="select select--appliance">
+            <div class="select__header">
+              <p>Appareils</p>
+              <img src="img/arrow.svg" alt="cross" class="cross-select" />
+            </div>
+            <div class="select__container hidden">
+              <div class="select__input">
+                <input
+                  type="text"
+                  data-type="appliance"
+                  placeholder="Rechercher un appareil"
+                  oninput="filterSelectChoices(event.target, 'appliance')"
+                />
+                <img
+                  src="img/arrow.svg"
+                  alt="cross"
+                  class="cross-select rotate-180deg"
+                />
+              </div>
+              <div class="select__item"></div>
+            </div>
+          </div>
+
+          <div class="select select--ustensils">
+            <div class="select__header">
+              <p>Ustensiles</p>
+              <img src="img/arrow.svg" alt="cross" class="cross-select" />
+            </div>
+            <div class="select__container hidden">
+              <div class="select__input">
+                <input
+                  type="text"
+                  data-type="ustensils"
+                  placeholder="Rechercher un ustensile"
+                  oninput="filterSelectChoices(event.target, 'ustensils')"
+                />
+                <img
+                  src="img/arrow.svg"
+                  alt="cross"
+                  class="cross-select rotate-180deg"
+                />
+              </div>
+              <div class="select__item"></div>
+            </div>
+          </div>
+        </div>
+
+        <!--         SECTION AVEC TOUTES LES RECETTES -->
+        <div class="recipes-section">
+          <p class="recipes-section__empty hidden">
+            Aucune recette ne correspond à votre critère... vous pouvez chercher
+            « tarte aux pommes », « poisson », etc.
+          </p>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
