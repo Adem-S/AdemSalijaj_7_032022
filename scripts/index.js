@@ -40,34 +40,60 @@ function filterRecipes(input, tag = "") {
   //Verifie la présence de tags en paramètre
   let listTag = tag ? tag : TAGS;
 
-  let finalArray = RECIPES;
+  let arrayAfterFilterByTag = listTag.length > 0 ? [] : RECIPES;
 
   //Verifie si il y a des tags
   if (listTag.length > 0) {
-    //Verifie si les recettes correspondent aux tags ajoutés et modifie la variable finalArray
-    finalArray = RECIPES.filter((recipe) => {
-      if (listTag == []) return true;
-      return listTag.every((e) => {
-        return (
-          recipe.appliance.includes(e) ||
-          recipe.ingredients.includes(e) ||
-          recipe.ustensils.includes(e)
-        );
-      });
-    });
+    //Verifie si les recettes correspondent aux tags ajoutés et modifie la variable arrayAfterFilterByTag
+    for (let i = 0; i < RECIPES.length; i++) {
+      if (listTag == []) continue;
+      let listTagCount = 0;
+      listTagLoop: for (let k = 0; k < listTag.length; k++) {
+        for (let x = 0; x < RECIPES[i].appliance.length; x++) {
+          if (RECIPES[i].appliance[x] == listTag[k]) {
+            listTagCount++;
+            continue listTagLoop;
+          }
+        }
+        for (let y = 0; y < RECIPES[i].ingredients.length; y++) {
+          if (RECIPES[i].ingredients[y] == listTag[k]) {
+            listTagCount++;
+            continue listTagLoop;
+          }
+        }
+        for (let z = 0; z < RECIPES[i].ustensils.length; z++) {
+          if (RECIPES[i].ustensils[z] == listTag[k]) {
+            listTagCount++;
+            continue listTagLoop;
+          }
+        }
+      }
+      if (listTagCount == listTag.length) {
+        arrayAfterFilterByTag.push(RECIPES[i]);
+      }
+    }
   }
+
   //Verifie si les recettes correspondent à la recherche, modifie la variable finalArray et assigne la variable finalArray à RECIPES_TO_SHOW
+  let finalArray = inputValue.length >= 3 ? [] : arrayAfterFilterByTag;
   if (inputValue.length >= 3) {
-    RECIPES_TO_SHOW = finalArray.filter((recipe) => {
-      return (
-        recipe.name.toUpperCase().indexOf(inputValue.toUpperCase()) > -1 ||
-        recipe.ingredients.indexOf(inputValue.toUpperCase()) > -1 ||
-        recipe.description.toUpperCase().indexOf(inputValue.toUpperCase()) > -1
-      );
-    });
-  } else {
-    RECIPES_TO_SHOW = finalArray;
+    for (let l = 0; l < arrayAfterFilterByTag.length; l++) {
+      if (
+        arrayAfterFilterByTag[l].name
+          .toUpperCase()
+          .indexOf(inputValue.toUpperCase()) > -1 ||
+        arrayAfterFilterByTag[l].ingredients.indexOf(inputValue.toUpperCase()) >
+          -1 ||
+        arrayAfterFilterByTag[l].description
+          .toUpperCase()
+          .indexOf(inputValue.toUpperCase()) > -1
+      ) {
+        finalArray.push(arrayAfterFilterByTag[l]);
+      }
+    }
   }
+
+  RECIPES_TO_SHOW = finalArray;
 
   displayRecipesToShow(RECIPES_TO_SHOW);
   displaySelectChoicesToShow(RECIPES_TO_SHOW);
