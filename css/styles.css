@@ -130,7 +130,9 @@ header img {
 }
 
 .recipes-section__empty {
-  width: 100vw;
+  display: block;
+  width: calc(100vw - 20px);
+  margin: 0 auto;
 }
 
 .card {
